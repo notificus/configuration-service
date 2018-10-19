@@ -4,15 +4,11 @@ public class UserContract {
     private String cip;
     private String firstName;
     private String lastName;
-    private String department;
-    private String faculty;
 
     private UserContract(Builder builder) {
         this.cip = builder.cip;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
-        this.department = builder.department;
-        this.faculty = builder.faculty;
     }
 
     public String getCip() {
@@ -27,43 +23,30 @@ public class UserContract {
         return lastName;
     }
 
-    public String getDepartment() {
-        return department;
+    public static Builder builder() {
+        return new UserContract.Builder();
     }
 
-    public String getFaculty() {
-        return faculty;
-    }
-
-    private Builder builder() {
-        return new Builder();
-    }
-
-    private class Builder {
+    public static class Builder {
         private String cip;
         private String firstName;
         private String lastName;
-        private String department;
-        private String faculty;
 
-        public void withCip(String cip) {
+        private Builder() {}
+
+        public Builder withCip(String cip) {
             this.cip = cip;
+            return this;
         }
 
-        public void withFirstName(String firstName) {
+        public Builder withFirstName(String firstName) {
             this.firstName = firstName;
+            return this;
         }
 
-        public void withLastName(String lastName) {
+        public Builder withLastName(String lastName) {
             this.lastName = lastName;
-        }
-
-        public void withDepartment(String department) {
-            this.department = department;
-        }
-
-        public void withFaculty(String faculty) {
-            this.faculty = faculty;
+            return this;
         }
 
         public UserContract build() {

@@ -1,0 +1,18 @@
+spring:
+  profiles: default
+server:
+  port: 8080
+
+---
+
+spring:
+  profiles: test
+server:
+  port: 8080
+
+---
+
+spring:
+  profiles: prod
+server:
+  port: 5000

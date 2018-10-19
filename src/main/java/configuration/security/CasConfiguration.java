@@ -1,8 +1,10 @@
 package configuration.security;
 
-import configuration.security.cas.UserDetailsServiceImpl;
+import configuration.service.user.persistent.PersistentUserService;
 import org.jasig.cas.client.validation.Cas30ServiceTicketValidator;
 import org.jasig.cas.client.validation.TicketValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -11,12 +13,20 @@ import org.springframework.security.cas.authentication.CasAuthenticationProvider
 import org.springframework.security.cas.web.CasAuthenticationEntryPoint;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
+import static java.lang.String.format;
+
 @Configuration
 public class CasConfiguration {
+    @Value("${server.port}")
+    private String port;
+
+    @Autowired
+    PersistentUserService persistentUserService;
+
     @Bean
     public ServiceProperties serviceProperties() {
         ServiceProperties serviceProperties = new ServiceProperties();
-        serviceProperties.setService("http://localhost:8080/login/cas");
+        serviceProperties.setService(format("http://localhost:%s/login/cas", port));
         serviceProperties.setSendRenew(true);
         return serviceProperties;
     }
@@ -40,7 +50,7 @@ public class CasConfiguration {
         CasAuthenticationProvider provider = new CasAuthenticationProvider();
         provider.setServiceProperties(serviceProperties);
         provider.setTicketValidator(ticketValidator());
-        provider.setUserDetailsService(new UserDetailsServiceImpl());
+        provider.setUserDetailsService(persistentUserService);
         provider.setKey("TEST");
         return provider;
     }

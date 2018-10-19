@@ -6,17 +6,16 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.6.RELEASE'
 }
 
-version '1.0-SNAPSHOT'
+version '1.0'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'joda-time:joda-time:2.2'
     compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile group: 'org.springframework.security', name: 'spring-security-cas', version: '5.1.0.RELEASE'
