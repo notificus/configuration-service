@@ -22,6 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RestController
 public class UserController {
     private final String CIP_PLACEHOLDER = "me";
+
     @Autowired
     UserService userService;
 
@@ -46,12 +47,4 @@ public class UserController {
     public UserContract updateUser(@PathVariable String cip, @RequestBody UserContract userContract) {
         return UserContractTranslator.translateTo(userService.updateUser(cip, UserContractTranslator.translateFrom(userContract)));
     }
-
-//    public String index() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null && auth.getPrincipal() != null && auth.getPrincipal() instanceof UserDetails) {
-//            return ((UserDetails) auth.getPrincipal()).getUsername();
-//        }
-//        return "Greetings";
-//    }
 }
