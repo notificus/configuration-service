@@ -16,16 +16,16 @@ public class PostgresqlUserRepository implements UserRepository {
 
     @Override
     public UserEntity getUser(String cip) {
+        return UserEntity.builder().withCip(cip).withFirstName("Phil").withLastName("Garneau").build();
+    }
+
+    @Override
+    public UserEntity createUser(UserEntity user) {
         return null;
     }
 
     @Override
-    public UserEntity createUser(User user) {
-        return null;
-    }
-
-    @Override
-    public UserEntity updateUser(User user) {
+    public UserEntity updateUser(UserEntity user) {
         return null;
     }
 }

@@ -1,5 +1,8 @@
 package configuration.api.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(builder = UserContract.Builder.class)
 public class UserContract {
     private String cip;
     private String firstName;

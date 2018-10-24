@@ -34,12 +34,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .regexMatchers("/")
+                .regexMatchers("/*")
                 .authenticated()
                 .and()
                 .authorizeRequests()
-                .regexMatchers("/")
+                .regexMatchers("/*")
                 .permitAll()
                 .and()
                 .httpBasic()
