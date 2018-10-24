@@ -36,12 +36,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .regexMatchers("/*")
-                .authenticated()
+                .antMatchers("/login/cas")
+                .permitAll()
                 .and()
                 .authorizeRequests()
-                .regexMatchers("/*")
-                .permitAll()
+                .antMatchers("/**")
+                .authenticated()
                 .and()
                 .httpBasic()
                 .authenticationEntryPoint(authenticationEntryPoint);

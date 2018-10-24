@@ -3,7 +3,10 @@ package configuration.api.user;
 import configuration.api.Routes;
 import configuration.service.user.UserService;
 import configuration.service.user.persistent.PersistentUserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,19 +35,22 @@ public class UserController {
     }
 
     @RequestMapping(value = Routes.USER_ROUTE, method = GET)
-    public UserContract getUser(@PathVariable String cip) {
+    public ResponseEntity<UserContract> getUser(@PathVariable String cip) {
         if (cip.equals(CIP_PLACEHOLDER)) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.getPrincipal() != null && auth.getPrincipal() instanceof UserDetails) {
                 cip = ((UserDetails) auth.getPrincipal()).getUsername();
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
         }
 
-        return UserContractTranslator.translateTo(userService.getUser(cip));
+        return new ResponseEntity<>(UserContractTranslator.translateTo(userService.getUser(cip)), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USER_ROUTE, method = PUT)
-    public UserContract updateUser(@PathVariable String cip, @RequestBody UserContract userContract) {
-        return UserContractTranslator.translateTo(userService.updateUser(cip, UserContractTranslator.translateFrom(userContract)));
+    public ResponseEntity<UserContract> updateUser(@PathVariable String cip, @RequestBody UserContract userContract) {
+        return new ResponseEntity<>(UserContractTranslator.translateTo(
+                userService.updateUser(cip, UserContractTranslator.translateFrom(userContract))), HttpStatus.OK);
     }
 }
