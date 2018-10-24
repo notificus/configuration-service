@@ -30,8 +30,8 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = Routes.USERS_ROUTE, method = GET)
-    public List<UserContract> listUsers() {
-        return UserContractTranslator.translateTo(userService.listUsers());
+    public ResponseEntity<List<UserContract>> listUsers() {
+        return new ResponseEntity<>(UserContractTranslator.translateTo(userService.listUsers()), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USER_ROUTE, method = GET)
