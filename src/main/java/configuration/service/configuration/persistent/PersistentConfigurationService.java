@@ -12,7 +12,11 @@ public class PersistentConfigurationService implements ConfigurationService {
 
     @Override
     public Configuration getConfiguration(String cip) {
-        return ConfigurationEntityTranslator.translateFrom(configurationRepository.getConfiguration(cip));
+        try {
+            return ConfigurationEntityTranslator.translateFrom(configurationRepository.getConfiguration(cip));
+        } catch(Exception e) {
+            return createConfiguration(Configuration.builder().withCip(cip).withWantsEmail(false).build());
+        }
     }
 
     @Override
