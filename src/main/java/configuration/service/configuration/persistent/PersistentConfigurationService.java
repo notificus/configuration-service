@@ -1,4 +1,27 @@
 package configuration.service.configuration.persistent;
 
-public class PersistentConfigurationService {
+import configuration.service.configuration.Configuration;
+import configuration.service.configuration.ConfigurationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PersistentConfigurationService implements ConfigurationService {
+    @Autowired
+    ConfigurationRepository configurationRepository;
+
+    @Override
+    public Configuration getConfiguration(String cip) {
+        return ConfigurationEntityTranslator.translateFrom(configurationRepository.getConfiguration(cip));
+    }
+
+    @Override
+    public Configuration createConfiguration(Configuration configuration){
+        return ConfigurationEntityTranslator.translateFrom(configurationRepository.createConfiguration(ConfigurationEntityTranslator.translateTo(configuration)));
+    }
+
+    @Override
+    public Configuration updateConfiguration(Configuration configuration) {
+        return ConfigurationEntityTranslator.translateFrom(configurationRepository.updateConfiguration(ConfigurationEntityTranslator.translateTo(configuration)));
+    }
 }
