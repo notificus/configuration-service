@@ -45,7 +45,6 @@ public class PersistentUserService implements UserDetailsService, UserService {
 
     @Override
     public User createUser(User user) {
-        UserEntity userEntity = UserEntityTranslator.translateTo(user);
         return UserEntityTranslator.translateFrom(userRepository.save(UserEntityTranslator.translateTo(user)));
     }
 

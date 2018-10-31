@@ -8,7 +8,7 @@ import java.util.List;
 public class EmailConfigurationEntity {
     @Id
     @Column(name = "email_configuration_entity_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "email_configuration_entity_enabled")
