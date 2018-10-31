@@ -2,6 +2,7 @@ package configuration.service.configuration.persistent;
 
 import configuration.service.configuration.Configuration;
 import configuration.service.configuration.ConfigurationService;
+import configuration.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,22 +11,18 @@ public class PersistentConfigurationService implements ConfigurationService {
     @Autowired
     ConfigurationRepository configurationRepository;
 
+    @Autowired
+    UserService userService;
+
     @Override
     public Configuration getConfiguration(String cip) {
-        try {
-            return ConfigurationEntityTranslator.translateFrom(configurationRepository.getConfiguration(cip));
-        } catch(Exception e) {
-            return createConfiguration(Configuration.builder().withCip(cip).withWantsEmail(false).build());
-        }
+        return ConfigurationEntityTranslator.translateFrom(configurationRepository.findById(cip).get());
     }
 
     @Override
-    public Configuration createConfiguration(Configuration configuration){
-        return ConfigurationEntityTranslator.translateFrom(configurationRepository.createConfiguration(ConfigurationEntityTranslator.translateTo(configuration)));
-    }
-
-    @Override
-    public Configuration updateConfiguration(Configuration configuration) {
-        return ConfigurationEntityTranslator.translateFrom(configurationRepository.updateConfiguration(ConfigurationEntityTranslator.translateTo(configuration)));
+    public Configuration updateConfiguration(String cip, Configuration configuration) {
+        return ConfigurationEntityTranslator.translateFrom(
+                configurationRepository.save(
+                        ConfigurationEntityTranslator.translateTo(userService.getUser(cip), configuration)));
     }
 }

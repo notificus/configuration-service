@@ -16,15 +16,20 @@ repositories {
 }
 
 dependencies {
-    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+    compile 'org.postgresql:postgresql'
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-test'
     compile group: 'org.springframework.security', name: 'spring-security-cas', version: '5.1.0.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.1.0.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.1.0.RELEASE'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+    compile group: 'org.javassist', name: 'javassist', version: '3.23.1-GA'
 
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
 }
 
 mainClassName = 'configuration.Application'

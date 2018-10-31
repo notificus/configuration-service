@@ -1,9 +1,6 @@
 package configuration.service.configuration.persistent;
 
-import configuration.service.configuration.Configuration;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ConfigurationRepository {
-    ConfigurationEntity getConfiguration(String cip);
-    ConfigurationEntity createConfiguration(ConfigurationEntity configuration);
-    ConfigurationEntity updateConfiguration(ConfigurationEntity configuration);
+public interface ConfigurationRepository extends CrudRepository<ConfigurationEntity, String> {
 }

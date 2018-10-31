@@ -3,55 +3,56 @@ package configuration.service.user.persistent;
 import configuration.service.user.User;
 import configuration.service.user.UserService;
 import configuration.service.user.exception.CipMismatchException;
-import configuration.service.user.persistent.postgresql.PostgresqlUserRepository;
-import org.springframework.beans.InvalidPropertyException;
+import configuration.service.user.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static java.util.Collections.emptyList;
+import java.util.Optional;
 
 @Service
 public class PersistentUserService implements UserDetailsService, UserService {
-    private final String PERSONAL_CIP = "me";
     @Autowired
-    PostgresqlUserRepository postgresqlUserRepository;
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String cip) throws UsernameNotFoundException {
         try {
+            System.out.println(cip);
             return getUser(cip);
-        } catch (Exception e) {
-            createUser(User.builder().withCip(cip).build());
-            return null;
+        } catch (UserNotFoundException e) {
+            return createUser(User.builder().withCip(cip).withFirstName("allo").withLastName("bonjour").build());
         }
     }
 
     @Override
     public List<User> listUsers() {
-        return UserEntityTranslator.translateFrom(postgresqlUserRepository.listUsers());
+        return UserEntityTranslator.translateFrom(userRepository.findAll());
     }
 
     @Override
     public User getUser(String cip) {
-        return UserEntityTranslator.translateFrom(postgresqlUserRepository.getUser(cip));
+        Optional<UserEntity> userEntity = userRepository.findById(cip);
+        if (userEntity.isPresent()) {
+            return UserEntityTranslator.translateFrom(userEntity.get());
+        } else {
+            throw new UserNotFoundException(cip);
+        }
     }
 
     @Override
     public User createUser(User user) {
-        return UserEntityTranslator.translateFrom(postgresqlUserRepository.createUser(UserEntityTranslator.translateTo(user)));
+        UserEntity userEntity = UserEntityTranslator.translateTo(user);
+        return UserEntityTranslator.translateFrom(userRepository.save(UserEntityTranslator.translateTo(user)));
     }
 
     @Override
     public User updateUser(String cip, User user) {
         if (cip.equals(user.getCip())) {
-            return UserEntityTranslator.translateFrom(postgresqlUserRepository.updateUser(UserEntityTranslator.translateTo(user)));
+            return UserEntityTranslator.translateFrom(userRepository.save(UserEntityTranslator.translateTo(user)));
         } else {
             throw new CipMismatchException();
         }

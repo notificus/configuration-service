@@ -1,48 +1,41 @@
 package configuration.service.configuration.persistent;
 
-import java.util.List;
+import configuration.service.configuration.persistent.postgresql.EmailConfigurationEntity;
+import configuration.service.configuration.persistent.postgresql.ConfigurationEntityId;
+import configuration.service.user.persistent.UserEntity;
 
-public class ConfigurationEntity {
-    private String cip;
-    private boolean wantsEmail;
-    private List<String> emails;
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private ConfigurationEntity(Builder builder){
-        this.cip = builder.cip;
-        this.wantsEmail = builder.wantsEmails;
-        this.emails = builder.emails;
+@Entity
+@IdClass(ConfigurationEntityId.class)
+public class ConfigurationEntity implements Serializable {
+    @Id
+    @OneToOne
+    @JoinColumn(name = "user_entity_cip")
+    public UserEntity userEntity;
+
+    @Id
+    @OneToOne
+    @JoinColumn(name = "email_configuration_entity_id")
+    public EmailConfigurationEntity emailConfigurationEntity;
+
+    public ConfigurationEntity() {
     }
 
-    public String getCip() { return cip; }
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
 
-    public boolean getWantsEmail(){ return wantsEmail; }
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
 
-    public List<String> getEmails() { return emails; }
+    public EmailConfigurationEntity getEmailConfigurationEntity() {
+        return emailConfigurationEntity;
+    }
 
-    public static Builder builder(){ return new ConfigurationEntity.Builder(); }
-
-    public static class Builder {
-        private String cip;
-        private boolean wantsEmails;
-        private List<String> emails;
-
-        private Builder(){}
-
-        public Builder withCip(String cip){
-            this.cip = cip;
-            return this;
-        }
-
-        public Builder withWantsEmail(boolean wantsEmail){
-            this.wantsEmails = wantsEmail;
-            return this;
-        }
-
-        public Builder withEmails(List<String> emails){
-            this.emails = emails;
-            return this;
-        }
-
-        public ConfigurationEntity build() { return new ConfigurationEntity(this); }
+    public void setEmailConfigurationEntity(EmailConfigurationEntity emailConfigurationEntity) {
+        this.emailConfigurationEntity = emailConfigurationEntity;
     }
 }

@@ -1,14 +1,20 @@
 package configuration.service.user.persistent;
 
+import javax.persistence.*;
+
+@Entity
 public class UserEntity {
+    @Id
+    @Column(name = "user_entity_cip")
     private String cip;
+
+    @Column(name = "user_entity_first_name")
     private String firstName;
+
+    @Column(name = "user_entity_last_name")
     private String lastName;
 
-    private UserEntity(Builder builder) {
-        this.cip = builder.cip;
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
+    public UserEntity() {
     }
 
     public String getCip() {
@@ -19,38 +25,19 @@ public class UserEntity {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
     }
 
-    public static Builder builder() {
-        return new UserEntity.Builder();
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public static class Builder {
-        private String cip;
-        private String firstName;
-        private String lastName;
-
-        private Builder() {}
-
-        public Builder withCip(String cip) {
-            this.cip = cip;
-            return this;
-        }
-
-        public Builder withFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public Builder withLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-
-        public UserEntity build() {
-            return new UserEntity(this);
-        }
+    public void setCip(String cip) {
+        this.cip = cip;
     }
 }

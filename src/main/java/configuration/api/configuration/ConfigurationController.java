@@ -1,13 +1,11 @@
 package configuration.api.configuration;
 
+import configuration.api.ControllerUtility;
 import configuration.api.Routes;
 import configuration.service.configuration.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +22,18 @@ public class ConfigurationController {
 
     @RequestMapping(value = Routes.USER_CONFIGURATIONS_ROUTE, method = GET)
     public ResponseEntity<ConfigurationContract> getConfiguration(@PathVariable String cip) {
-        return new ResponseEntity<>(ConfigurationContractTranslator.translateTo(configurationService.getConfiguration(cip)), HttpStatus.OK);
+        cip = ControllerUtility.getCurrentUser(cip);
+
+        return new ResponseEntity<>(ConfigurationContractTranslator.translateTo(
+                configurationService.getConfiguration(cip)), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USER_CONFIGURATIONS_ROUTE, method = PUT)
     public ResponseEntity<ConfigurationContract> updateConfiguration(@PathVariable String cip, @RequestBody ConfigurationContract configurationContract) {
+        cip = ControllerUtility.getCurrentUser(cip);
+
         return new ResponseEntity<>(ConfigurationContractTranslator.translateTo(
-                configurationService.updateConfiguration(ConfigurationContractTranslator.translateFrom(configurationContract))
-        ), HttpStatus.OK);
+                configurationService.updateConfiguration(
+                        cip, ConfigurationContractTranslator.translateFrom(configurationContract))), HttpStatus.OK);
     }
 }

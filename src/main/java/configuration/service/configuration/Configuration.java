@@ -3,46 +3,46 @@ package configuration.service.configuration;
 import java.util.List;
 
 public class Configuration {
-    private String cip;
-    private boolean wantsEmail;
+    private Boolean emailEnabled;
     private List<String> emails;
 
     private Configuration(Builder builder) {
-        this.cip = builder.cip;
-        this.wantsEmail = builder.wantsEmail;
+        this.emailEnabled = builder.emailEnabled;
         this.emails = builder.emails;
     }
 
-    public String getCip(){ return cip; }
+    public Boolean getEmailEnabled() {
+        return emailEnabled;
+    }
 
-    public boolean getWantsEmail(){ return wantsEmail; }
+    public List<String> getEmails() {
+        return emails;
+    }
 
-    public List<String> getEmails(){ return emails; }
-
-    public static Builder builder() { return new Configuration.Builder(); }
+    public static Builder builder() {
+        return new Configuration.Builder();
+    }
 
     public static class Builder {
-        private String cip;
-        private boolean wantsEmail;
+        private Boolean emailEnabled;
         private List<String> emails;
 
-        private Builder(){}
+        private Builder() {
+        }
 
-        public Builder withCip(String cip){
-            this.cip = cip;
+        public Builder withEmailEnabled(Boolean enabled) {
+            this.emailEnabled = enabled;
             return this;
         }
 
-        public Builder withWantsEmail(boolean wantsEmail){
-            this.wantsEmail = wantsEmail;
-            return this;
-        }
 
-        public Builder withEmails(List<String> emails){
+        public Builder withEmails(List<String> emails) {
             this.emails = emails;
             return this;
         }
 
-        public Configuration build(){ return new Configuration(this); }
+        public Configuration build() {
+            return new Configuration(this);
+        }
     }
 }

@@ -3,38 +3,30 @@ package configuration.api.configuration;
 import java.util.List;
 
 public class ConfigurationContract {
-    private String cip;
-    private boolean wantsEmail;
+    private Boolean emailEnabled;
     private List<String> emails;
 
     private ConfigurationContract(Builder builder) {
-        this.cip = builder.cip;
-        this.wantsEmail = builder.wantsEmail;
+        this.emailEnabled = builder.emailEnabled;
         this.emails = builder.emails;
     }
 
-    public String getCip() { return cip; }
-
-    public boolean getWantsEmail() { return wantsEmail; }
+    public Boolean getEmailEnabled() {
+        return emailEnabled;
+    }
 
     public List<String> getEmails() { return emails; }
 
     public static Builder builder() { return new ConfigurationContract.Builder(); }
 
     public static class Builder {
-        private String cip;
-        private boolean wantsEmail;
+        private Boolean emailEnabled;
         private List<String> emails;
 
         private Builder() { }
 
-        public Builder withCip(String cip){
-            this.cip = cip;
-            return this;
-        }
-
-        public Builder withWantsEmail(boolean wantsEmail) {
-            this.wantsEmail = wantsEmail;
+        public Builder withEmailEnabled(Boolean enabled) {
+            this.emailEnabled = enabled;
             return this;
         }
 

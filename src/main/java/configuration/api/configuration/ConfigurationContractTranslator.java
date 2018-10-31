@@ -5,16 +5,14 @@ import configuration.service.configuration.Configuration;
 public class ConfigurationContractTranslator {
     public static ConfigurationContract translateTo(Configuration configuration){
         return ConfigurationContract.builder()
-                .withCip(configuration.getCip())
-                .withWantsEmail(configuration.getWantsEmail())
+                .withEmailEnabled(configuration.getEmailEnabled())
                 .withEmails(configuration.getEmails())
                 .build();
     }
 
     public static Configuration translateFrom(ConfigurationContract configurationContract){
         return Configuration.builder()
-                .withCip(configurationContract.getCip())
-                .withWantsEmail(configurationContract.getWantsEmail())
+                .withEmailEnabled(configurationContract.getEmailEnabled())
                 .withEmails(configurationContract.getEmails())
                 .build();
     }

@@ -1,7 +1,27 @@
 spring:
   profiles: default
+  datasource:
+    platform: postgres
+#    url: jdbc:postgresql://localhost:5432/pgarneau
+#    username: pgarneau
+    url: jdbc:postgresql://zeus.gel.usherbrooke.ca:5432/s6infoe02
+    username: s6infoe02
+    password: s6infoe02
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 server:
   port: 8080
+  use-forward-headers: true
 
 ---
 
