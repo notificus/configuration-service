@@ -1,27 +1,25 @@
 package configuration.service.configuration.persistent;
 
-import configuration.service.configuration.persistent.postgresql.EmailConfigurationEntity;
 import configuration.service.configuration.persistent.postgresql.ConfigurationEntityId;
+import configuration.service.configuration.persistent.postgresql.EmailConfigurationEntity;
 import configuration.service.user.persistent.UserEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@IdClass(ConfigurationEntityId.class)
-public class ConfigurationEntity implements Serializable {
+public class ConfigurationEntity {
     @Id
+    @Column(name = "user_entity_cip")
+    private String cip;
+
     @OneToOne
     @JoinColumn(name = "user_entity_cip")
-    public UserEntity userEntity;
+    private UserEntity userEntity;
 
-    @Id
     @OneToOne
     @JoinColumn(name = "email_configuration_entity_id")
-    public EmailConfigurationEntity emailConfigurationEntity;
-
-    public ConfigurationEntity() {
-    }
+    private EmailConfigurationEntity emailConfigurationEntity;
 
     public UserEntity getUserEntity() {
         return userEntity;

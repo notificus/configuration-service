@@ -9,7 +9,7 @@ public class EmailConfigurationEntity {
     @Id
     @Column(name = "email_configuration_entity_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
 
     @Column(name = "email_configuration_entity_enabled")
     private Boolean enabled;
@@ -20,11 +20,11 @@ public class EmailConfigurationEntity {
 
     public EmailConfigurationEntity() {}
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

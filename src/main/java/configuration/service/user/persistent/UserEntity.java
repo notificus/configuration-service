@@ -1,9 +1,10 @@
 package configuration.service.user.persistent;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class UserEntity {
+public class UserEntity implements Serializable {
     @Id
     @Column(name = "user_entity_cip")
     private String cip;

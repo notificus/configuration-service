@@ -2,6 +2,7 @@ package configuration.service.configuration.persistent;
 
 import configuration.service.configuration.Configuration;
 import configuration.service.configuration.ConfigurationService;
+import configuration.service.configuration.persistent.postgresql.ConfigurationEntityId;
 import configuration.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ public class PersistentConfigurationService implements ConfigurationService {
 
     @Override
     public Configuration getConfiguration(String cip) {
-        return ConfigurationEntityTranslator.translateFrom(configurationRepository.findById(cip).get());
+        return ConfigurationEntityTranslator.translateFrom(
+                configurationRepository.findById(cip).get());
     }
 
     @Override
