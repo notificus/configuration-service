@@ -27,7 +27,6 @@ import java.util.Vector;
 
 @RunWith(SpringRunner.class)
 public class TestUserService {
-
     @TestConfiguration
     static class PersistentUserServiceTestContextConfiguration{
         @Bean

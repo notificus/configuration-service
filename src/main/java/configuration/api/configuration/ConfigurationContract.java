@@ -1,7 +1,11 @@
 package configuration.api.configuration;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import configuration.service.configuration.Configuration;
+
 import java.util.List;
 
+@JsonDeserialize(builder = ConfigurationContract.Builder.class)
 public class ConfigurationContract {
     private Boolean emailEnabled;
     private List<String> emails;
