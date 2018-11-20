@@ -28,9 +28,9 @@ import java.util.Vector;
 @RunWith(SpringRunner.class)
 public class TestUserService {
     @TestConfiguration
-    static class PersistentUserServiceTestContextConfiguration{
+    static class PersistentUserServiceTestContextConfiguration {
         @Bean
-        public PersistentUserService userService(){
+        public PersistentUserService userService() {
             return new PersistentUserService();
         }
     }
@@ -42,7 +42,7 @@ public class TestUserService {
     private UserRepository userRepository;
 
     @Test
-    public void given_cip_than_getUser_return_user(){
+    public void given_cip_than_getUser_return_user() {
         String cip = "test1111";
         String firstName = "Test";
         String lastName = "Testing";
@@ -64,7 +64,7 @@ public class TestUserService {
     }
 
     @Test
-    public void given_cip_and_user_exists_than_loadUserByUsername_return_user(){
+    public void given_cip_and_user_exists_than_loadUserByUsername_return_user() {
         String cip = "test1111";
         String firstName = "Test";
         String lastName = "Testing";
@@ -80,13 +80,13 @@ public class TestUserService {
 
         UserDetails user = userService.loadUserByUsername(cip);
 
-        assertThat(((User)user).getCip()).isEqualTo(expectedUser.getCip());
-        assertThat(((User)user).getFirstName()).isEqualTo(expectedUser.getFirstName());
-        assertThat(((User)user).getLastName()).isEqualTo(expectedUser.getLastName());
+        assertThat(((User) user).getCip()).isEqualTo(expectedUser.getCip());
+        assertThat(((User) user).getFirstName()).isEqualTo(expectedUser.getFirstName());
+        assertThat(((User) user).getLastName()).isEqualTo(expectedUser.getLastName());
     }
 
     @Test
-    public void given_cip_and_user_does_not_exist_than_loadUserByUsername_return_new_user(){
+    public void given_cip_and_user_does_not_exist_than_loadUserByUsername_return_new_user() {
         String cip = "test1111";
         String firstName = "Test";
         String lastName = "Testing";
@@ -103,19 +103,19 @@ public class TestUserService {
 
         UserDetails user = userService.loadUserByUsername(cip);
 
-        assertThat(((User)user).getCip()).isEqualTo(expectedUser.getCip());
-        assertThat(((User)user).getFirstName()).isEqualTo(expectedUser.getFirstName());
-        assertThat(((User)user).getLastName()).isEqualTo(expectedUser.getLastName());
+        assertThat(((User) user).getCip()).isEqualTo(expectedUser.getCip());
+        assertThat(((User) user).getFirstName()).isEqualTo(expectedUser.getFirstName());
+        assertThat(((User) user).getLastName()).isEqualTo(expectedUser.getLastName());
     }
 
     @Test
-    public void listUsers_return_all_users(){
+    public void listUsers_return_all_users() {
         UserEntity userEntity1 = new UserEntity();
         userEntity1.setCip("test1111");
         userEntity1.setFirstName("Test1");
         userEntity1.setLastName("Testing1");
 
-        UserEntity userEntity2= new UserEntity();
+        UserEntity userEntity2 = new UserEntity();
         userEntity2.setCip("test2222");
         userEntity2.setFirstName("Test2");
         userEntity2.setLastName("Testing2");
@@ -148,7 +148,7 @@ public class TestUserService {
     }
 
     @Test
-    public void given_user_and_cip_that_matches_than_updateUser_return_updated_user(){
+    public void given_user_and_cip_that_matches_than_updateUser_return_updated_user() {
         String cip = "test1111";
         String firstName = "Test";
         String lastName = "Testing";
@@ -170,7 +170,7 @@ public class TestUserService {
     }
 
     @Test(expected = CipMismatchException.class)
-    public void given_user_and_cip_that_mismatches_than_updateUser_throws_exception(){
+    public void given_user_and_cip_that_mismatches_than_updateUser_throws_exception() {
         String cip = "test1111";
 
         UserEntity userEntity = new UserEntity();

@@ -23,7 +23,7 @@ public class PersistentConfigurationService implements ConfigurationService {
     public Configuration getConfiguration(String cip) {
         Optional<ConfigurationEntity> configurationEntity = configurationRepository.findById(cip);
 
-        if(configurationEntity.isPresent()) {
+        if (configurationEntity.isPresent()) {
             return ConfigurationEntityTranslator.translateFrom(configurationEntity.get());
         } else {
             throw new UserConfigurationNotFoundException(cip);
@@ -34,7 +34,7 @@ public class PersistentConfigurationService implements ConfigurationService {
     public Configuration updateConfiguration(String cip, Configuration configuration) {
         Optional<ConfigurationEntity> configurationEntity = configurationRepository.findById(cip);
 
-        if(configurationEntity.isPresent()) {
+        if (configurationEntity.isPresent()) {
             return ConfigurationEntityTranslator.translateFrom(
                     configurationRepository.save(ConfigurationEntityTranslator.translateTo(
                             configuration, configurationEntity.get())));

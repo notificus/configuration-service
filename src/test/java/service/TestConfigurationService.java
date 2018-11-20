@@ -37,7 +37,9 @@ public class TestConfigurationService {
     @TestConfiguration
     static class PersistentUserServiceContextConfiguration {
         @Bean
-        public PersistentUserService userService() { return new PersistentUserService(); }
+        public PersistentUserService userService() {
+            return new PersistentUserService();
+        }
     }
 
     @Autowired
@@ -53,7 +55,7 @@ public class TestConfigurationService {
     private ConfigurationRepository configurationRepository;
 
     @Test
-    public void Given_cip_and_configuration_exists_when_getConfiguration_return_configuration(){
+    public void Given_cip_and_configuration_exists_when_getConfiguration_return_configuration() {
         String cip = "test1111";
 
         UserEntity userEntity = new UserEntity();
@@ -85,7 +87,7 @@ public class TestConfigurationService {
     }
 
     @Test(expected = UserConfigurationNotFoundException.class)
-    public void Given_cip_and_configuration_does_not_exists_when_getConfiguration_then_throw_exception(){
+    public void Given_cip_and_configuration_does_not_exists_when_getConfiguration_then_throw_exception() {
         String cip = "test1111";
         Mockito.when(configurationRepository.findById(cip)).thenReturn(Optional.empty());
 
@@ -120,9 +122,9 @@ public class TestConfigurationService {
 
         Configuration configuration = configurationService.updateConfiguration(cip,
                 Configuration.builder()
-                .withEmailEnabled(true)
-                .withEmails(emails)
-                .build());
+                        .withEmailEnabled(true)
+                        .withEmails(emails)
+                        .build());
 
         assertThat(configuration.getEmailEnabled()).isEqualTo(expectedConfiguration.getEmailEnabled());
         assertThat(configuration.getEmails()).isEqualTo(expectedConfiguration.getEmails());

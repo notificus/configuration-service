@@ -19,26 +19,33 @@ public class ConfigurationContract {
         return emailEnabled;
     }
 
-    public List<String> getEmails() { return emails; }
+    public List<String> getEmails() {
+        return emails;
+    }
 
-    public static Builder builder() { return new ConfigurationContract.Builder(); }
+    public static Builder builder() {
+        return new ConfigurationContract.Builder();
+    }
 
     public static class Builder {
         private Boolean emailEnabled;
         private List<String> emails;
 
-        private Builder() { }
+        private Builder() {
+        }
 
         public Builder withEmailEnabled(Boolean enabled) {
             this.emailEnabled = enabled;
             return this;
         }
 
-        public Builder withEmails(List<String> emails){
+        public Builder withEmails(List<String> emails) {
             this.emails = emails;
             return this;
         }
 
-        public ConfigurationContract build() { return new ConfigurationContract(this); }
+        public ConfigurationContract build() {
+            return new ConfigurationContract(this);
+        }
     }
 }

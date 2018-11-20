@@ -18,7 +18,8 @@ public class EmailConfigurationEntity {
     @Column(name = "email_configuration_entity_emails")
     private List<String> emails = new ArrayList<String>();
 
-    public EmailConfigurationEntity() {}
+    public EmailConfigurationEntity() {
+    }
 
     public int getId() {
         return id;
