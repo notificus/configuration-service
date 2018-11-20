@@ -24,6 +24,15 @@ public class ConfigurationEntityTranslator {
         return configurationEntity;
     }
 
+    public static ConfigurationEntity translateTo(Configuration configuration, ConfigurationEntity configurationEntity) {
+        EmailConfigurationEntity emailConfigurationEntity = configurationEntity.getEmailConfigurationEntity();
+        emailConfigurationEntity.setEnabled(configuration.getEmailEnabled());
+        emailConfigurationEntity.setEmails(configuration.getEmails());
+
+        configurationEntity.setEmailConfigurationEntity(emailConfigurationEntity);
+        return configurationEntity;
+    }
+
     public static Configuration translateFrom(ConfigurationEntity configurationEntity) {
         return Configuration
                 .builder()

@@ -2,10 +2,14 @@ package configuration.service.configuration.persistent;
 
 import configuration.service.configuration.Configuration;
 import configuration.service.configuration.ConfigurationService;
+import configuration.service.configuration.persistent.exception.UserConfigurationNotFoundException;
 import configuration.service.configuration.persistent.postgresql.ConfigurationEntityId;
+import configuration.service.user.User;
 import configuration.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class PersistentConfigurationService implements ConfigurationService {
@@ -17,14 +21,25 @@ public class PersistentConfigurationService implements ConfigurationService {
 
     @Override
     public Configuration getConfiguration(String cip) {
-        return ConfigurationEntityTranslator.translateFrom(
-                configurationRepository.findById(cip).get());
+        Optional<ConfigurationEntity> configurationEntity = configurationRepository.findById(cip);
+
+        if (configurationEntity.isPresent()) {
+            return ConfigurationEntityTranslator.translateFrom(configurationEntity.get());
+        } else {
+            throw new UserConfigurationNotFoundException(cip);
+        }
     }
 
     @Override
     public Configuration updateConfiguration(String cip, Configuration configuration) {
-        return ConfigurationEntityTranslator.translateFrom(
-                configurationRepository.save(
-                        ConfigurationEntityTranslator.translateTo(userService.getUser(cip), configuration)));
+        Optional<ConfigurationEntity> configurationEntity = configurationRepository.findById(cip);
+
+        if (configurationEntity.isPresent()) {
+            return ConfigurationEntityTranslator.translateFrom(
+                    configurationRepository.save(ConfigurationEntityTranslator.translateTo(
+                            configuration, configurationEntity.get())));
+        } else {
+            throw new UserConfigurationNotFoundException(cip);
+        }
     }
 }
