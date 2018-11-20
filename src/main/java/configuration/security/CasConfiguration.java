@@ -26,8 +26,8 @@ public class CasConfiguration {
     @Bean
     public ServiceProperties serviceProperties() {
         ServiceProperties serviceProperties = new ServiceProperties();
-        //serviceProperties.setService(format("http://localhost:%s/login/cas", port));
-        serviceProperties.setService("http://localhost:8080/home");
+        serviceProperties.setService(format("http://localhost:%s/login/cas", port));
+        //serviceProperties.setService("http://localhost:8080/home");
         serviceProperties.setSendRenew(true);
         return serviceProperties;
     }
