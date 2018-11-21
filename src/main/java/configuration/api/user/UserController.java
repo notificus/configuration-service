@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 public class UserController {
@@ -21,6 +20,13 @@ public class UserController {
     @RequestMapping(value = Routes.USERS_ROUTE, method = GET)
     public ResponseEntity<List<UserContract>> listUsers() {
         return new ResponseEntity<>(UserContractTranslator.translateTo(userService.listUsers()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = Routes.USERS_ROUTE, method = POST)
+    public ResponseEntity<UserContract> createUser(@RequestBody UserContract userContract) {
+        return new ResponseEntity<>(UserContractTranslator.translateTo(
+                userService.createUser(UserContractTranslator.translateFrom(userContract))
+        ), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USER_ROUTE, method = GET)
@@ -36,5 +42,12 @@ public class UserController {
 
         return new ResponseEntity<>(UserContractTranslator.translateTo(
                 userService.updateUser(cip, UserContractTranslator.translateFrom(userContract))), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = Routes.USER_ROUTE, method = DELETE)
+    public void deleteUser(@PathVariable String cip) {
+        cip = ControllerUtility.getCurrentUser(cip);
+
+        userService.deleteUser(cip);
     }
 }

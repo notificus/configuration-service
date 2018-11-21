@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
@@ -35,5 +36,12 @@ public class ConfigurationController {
         return new ResponseEntity<>(ConfigurationContractTranslator.translateTo(
                 configurationService.updateConfiguration(
                         cip, ConfigurationContractTranslator.translateFrom(configurationContract))), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = Routes.USER_CONFIGURATIONS_ROUTE, method = DELETE)
+    public void deleteConfiguration(@PathVariable String cip) {
+        cip = ControllerUtility.getCurrentUser(cip);
+
+        configurationService.deleteConfiguration(cip);
     }
 }
