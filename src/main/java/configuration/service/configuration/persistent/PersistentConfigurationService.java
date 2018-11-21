@@ -40,4 +40,15 @@ public class PersistentConfigurationService implements ConfigurationService {
             throw new UserConfigurationNotFoundException(cip);
         }
     }
+
+    @Override
+    public void deleteConfiguration(String cip) {
+        Optional<ConfigurationEntity> configurationEntity = configurationRepository.findById(cip);
+
+        if (configurationEntity.isPresent()) {
+            configurationRepository.delete(configurationEntity.get());
+        } else {
+            throw new UserConfigurationNotFoundException(cip);
+        }
+    }
 }

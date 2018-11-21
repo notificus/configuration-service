@@ -60,4 +60,9 @@ public class PersistentUserService implements UserDetailsService, UserService {
             throw new CipMismatchException();
         }
     }
+
+    @Override
+    public void deleteUser(String cip) {
+        userRepository.deleteById(cip);
+    }
 }

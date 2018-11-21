@@ -1,7 +1,6 @@
 package configuration.service.user.persistent.microservices;
 
 import configuration.service.user.persistent.UserEntity;
-import net.minidev.json.parser.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
