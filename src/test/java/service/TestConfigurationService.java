@@ -4,7 +4,7 @@ import configuration.service.configuration.Configuration;
 import configuration.service.configuration.persistent.ConfigurationEntity;
 import configuration.service.configuration.persistent.ConfigurationRepository;
 import configuration.service.configuration.persistent.PersistentConfigurationService;
-import configuration.service.configuration.persistent.exception.UserConfigurationNotFoundException;
+import configuration.service.configuration.exception.UserConfigurationNotFoundException;
 import configuration.service.configuration.persistent.postgresql.EmailConfigurationEntity;
 import configuration.service.user.persistent.PersistentUserService;
 import configuration.service.user.persistent.UserEntity;

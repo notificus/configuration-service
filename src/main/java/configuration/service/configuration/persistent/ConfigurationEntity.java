@@ -13,11 +13,11 @@ public class ConfigurationEntity {
     @Column(name = "user_entity_cip")
     private String cip;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "user_entity_cip")
     private UserEntity userEntity;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "email_configuration_entity_id")
     private EmailConfigurationEntity emailConfigurationEntity;
 

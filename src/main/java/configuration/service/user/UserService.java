@@ -7,4 +7,5 @@ public interface UserService {
     User getUser(String cip);
     User createUser(User user);
     User updateUser(String cip, User user);
+    void deleteUser(String cip);
 }
