@@ -3,11 +3,13 @@ package configuration.security;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.cas.ServiceProperties;
 import org.springframework.security.cas.web.CasAuthenticationFilter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,6 +23,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired AuthenticationEntryPoint authenticationEntryPoint;
     @Autowired AuthenticationProvider authenticationProvider;
+
+    @Value("${notification-service.ip}")
+    private String notificationServiceIp;
 
     @Bean
     public CasAuthenticationFilter casAuthenticationFilter(ServiceProperties sP)
@@ -36,11 +41,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login/cas", "/users/**")
-                .permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/**")
+                .antMatchers("/login/cas").permitAll()
+                .antMatchers("/users/**").hasIpAddress(notificationServiceIp)
+                .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic()

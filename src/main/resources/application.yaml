@@ -26,6 +26,9 @@ server:
 configuration-service:
   url: "http://localhost"
 
+notification-service:
+  ip: "localhost"
+
 ---
 
 spring:
@@ -53,3 +56,6 @@ server:
 
 configuration-service:
   url: "http://localhost"
+
+notification-service:
+  ip: "notification-service"
