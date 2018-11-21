@@ -30,7 +30,6 @@ public class CasConfiguration {
     public ServiceProperties serviceProperties() {
         ServiceProperties serviceProperties = new ServiceProperties();
         serviceProperties.setService(format("%s:%s/login/cas", url, port));
-        //serviceProperties.setService("http://localhost:8080/home");
         serviceProperties.setSendRenew(false);
         return serviceProperties;
     }

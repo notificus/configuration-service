@@ -16,6 +16,26 @@ services:
     networks:
       - notificus-network
 
+  notification-service:
+    container_name: notification-service
+    build:
+      context: /home/philippe/dev/git/notification-service
+      dockerfile: Dockerfile
+    image: pgarneau/notification-service:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=9999
+    expose:
+      - 9999
+    ports:
+      - 9999:9999
+    networks:
+      - notificus-network
+    links:
+      - configuration-service:configuration-service
+    depends_on:
+      - configuration-service
+
 networks:
   notificus-network:
     driver: bridge
