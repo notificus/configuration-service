@@ -23,16 +23,33 @@ server:
   port: 8081
   use-forward-headers: true
 
----
-
-spring:
-  profiles: test
-server:
-  port: 8080
+configuration-service:
+  url: "http://localhost"
 
 ---
 
 spring:
   profiles: prod
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://zeus.gel.usherbrooke.ca:5432/s6infoe02
+    username: s6infoe02
+    password: s6infoe02
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 server:
-  port: 5000
+  port: 7777
+  use-forward-headers: true
+
+configuration-service:
+  url: "http://localhost"

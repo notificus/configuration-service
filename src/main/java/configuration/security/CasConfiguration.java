@@ -20,15 +20,18 @@ public class CasConfiguration {
     @Value("${server.port}")
     private String port;
 
+    @Value("${configuration-service.url}")
+    private String url;
+
     @Autowired
     PersistentUserService persistentUserService;
 
     @Bean
     public ServiceProperties serviceProperties() {
         ServiceProperties serviceProperties = new ServiceProperties();
-        serviceProperties.setService(format("http://localhost:%s/login/cas", port));
+        serviceProperties.setService(format("%s:%s/login/cas", url, port));
         //serviceProperties.setService("http://localhost:8080/home");
-        serviceProperties.setSendRenew(true);
+        serviceProperties.setSendRenew(false);
         return serviceProperties;
     }
 

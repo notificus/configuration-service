@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+  configuration-service:
+    container_name: configuration-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pgarneau/configuration-service:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=7777
+    expose:
+      - 7777
+    ports:
+      - 7777:7777
+    networks:
+      - notificus-network
+
+networks:
+  notificus-network:
+    driver: bridge

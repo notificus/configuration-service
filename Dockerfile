@@ -1,6 +1,6 @@
-FROM openjdk:12-jdk-alpine
+FROM openjdk:10-jre-slim
+
 VOLUME /tmp
-EXPOSE 8080
 ARG JAR_FILE=build/libs/configuration-service-1.0.jar
 
 # Add the application's jar to the container
