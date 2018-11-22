@@ -18,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
+import static java.lang.String.format;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -26,6 +28,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value("${notification-service.ip}")
     private String notificationServiceIp;
+
+    @Value("${configuration-web-app.ip}")
+    private String configurationWebAppIp;
 
     @Bean
     public CasAuthenticationFilter casAuthenticationFilter(ServiceProperties sP)
@@ -46,7 +51,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/users/**")
-                .hasIpAddress(notificationServiceIp)
+                .access("hasIpAddress('" + notificationServiceIp + "') or hasIpAddress('" + configurationWebAppIp + "')")
                 .antMatchers("/**")
                 .authenticated()
                 .and()

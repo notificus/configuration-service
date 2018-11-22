@@ -26,6 +26,10 @@ server:
 configuration-service:
   url: "http://localhost"
 
+configuration-web-app:
+  url: "http://localhost:8080/home"
+  ip: "localhost"
+
 notification-service:
   ip: "localhost"
 
@@ -56,6 +60,10 @@ server:
 
 configuration-service:
   url: "http://localhost"
+
+configuration-web-app:
+  url: "http://localhost:8080/home"
+  ip: "configuration-web-app"
 
 notification-service:
   ip: "notification-service"

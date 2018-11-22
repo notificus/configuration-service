@@ -36,6 +36,21 @@ services:
     depends_on:
       - configuration-service
 
+#  configuration-web-app:
+#    container_name: configuration-web-app
+#    build:
+#      context: /home/philippe/dev/git/configuration-web-app
+#      dockerfile: Dockerfile
+#    image: pgarneau/configuration-web-app:latest
+#    expose:
+#      - 8080
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - notificus-network
+#    links:
+#      - configuration-service:configuration-service
+
 networks:
   notificus-network:
     driver: bridge
