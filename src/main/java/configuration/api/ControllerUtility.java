@@ -1,4 +1,4 @@
-package configuration.api;
+/*package configuration.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -23,3 +23,4 @@ public class ControllerUtility {
         }
     }
 }
+*/

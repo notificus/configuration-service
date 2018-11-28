@@ -1,6 +1,5 @@
 package configuration.api.configuration;
 
-import configuration.api.ControllerUtility;
 import configuration.api.Routes;
 import configuration.service.configuration.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +22,12 @@ public class ConfigurationController {
 
     @RequestMapping(value = Routes.USER_CONFIGURATIONS_ROUTE, method = GET)
     public ResponseEntity<ConfigurationContract> getConfiguration(@PathVariable String cip) {
-        cip = ControllerUtility.getCurrentUser(cip);
-
         return new ResponseEntity<>(ConfigurationContractTranslator.translateTo(
                 configurationService.getConfiguration(cip)), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USER_CONFIGURATIONS_ROUTE, method = PUT)
     public ResponseEntity<ConfigurationContract> updateConfiguration(@PathVariable String cip, @RequestBody ConfigurationContract configurationContract) {
-        cip = ControllerUtility.getCurrentUser(cip);
-
         return new ResponseEntity<>(ConfigurationContractTranslator.translateTo(
                 configurationService.updateConfiguration(
                         cip, ConfigurationContractTranslator.translateFrom(configurationContract))), HttpStatus.OK);
@@ -40,8 +35,6 @@ public class ConfigurationController {
 
     @RequestMapping(value = Routes.USER_CONFIGURATIONS_ROUTE, method = DELETE)
     public void deleteConfiguration(@PathVariable String cip) {
-        cip = ControllerUtility.getCurrentUser(cip);
-
         configurationService.deleteConfiguration(cip);
     }
 }

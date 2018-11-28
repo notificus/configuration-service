@@ -1,12 +1,12 @@
 package configuration.service.user;
-
+/*
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+*/
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class User implements UserDetails {
+public class User /*implements UserDetails*/ {
     private static final long serialVersionUID = 1L;
 
     private String cip;
@@ -62,7 +62,7 @@ public class User implements UserDetails {
         }
     }
 
-    @Override
+/*    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>();
     }
@@ -95,5 +95,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 }

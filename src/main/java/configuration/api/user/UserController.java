@@ -1,6 +1,5 @@
 package configuration.api.user;
 
-import configuration.api.ControllerUtility;
 import configuration.api.Routes;
 import configuration.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +30,17 @@ public class UserController {
 
     @RequestMapping(value = Routes.USER_ROUTE, method = GET)
     public ResponseEntity<UserContract> getUser(@PathVariable String cip) {
-        cip = ControllerUtility.getCurrentUser(cip);
-
         return new ResponseEntity<>(UserContractTranslator.translateTo(userService.getUser(cip)), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USER_ROUTE, method = PUT)
     public ResponseEntity<UserContract> updateUser(@PathVariable String cip, @RequestBody UserContract userContract) {
-        cip = ControllerUtility.getCurrentUser(cip);
-
         return new ResponseEntity<>(UserContractTranslator.translateTo(
                 userService.updateUser(cip, UserContractTranslator.translateFrom(userContract))), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USER_ROUTE, method = DELETE)
     public void deleteUser(@PathVariable String cip) {
-        cip = ControllerUtility.getCurrentUser(cip);
-
         userService.deleteUser(cip);
     }
 }

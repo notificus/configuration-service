@@ -1,4 +1,4 @@
-package configuration.api;
+/*package configuration.api;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -27,3 +27,4 @@ public class LoginController {
 
     }
 }
+*/
