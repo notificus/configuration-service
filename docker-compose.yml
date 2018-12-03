@@ -36,20 +36,21 @@ services:
     depends_on:
       - configuration-service
 
-#  configuration-web-app:
-#    container_name: configuration-web-app
-#    build:
-#      context: /home/philippe/dev/git/configuration-web-app
-#      dockerfile: Dockerfile
-#    image: pgarneau/configuration-web-app:latest
-#    expose:
-#      - 8080
-#    ports:
-#      - 8080:8080
-#    networks:
-#      - notificus-network
-#    links:
-#      - configuration-service:configuration-service
+  configuration-web-app:
+    container_name: configuration-web-app
+    build:
+      context: /home/philippe/dev/git/configuration-web-app-angular
+      dockerfile: Dockerfile
+    image: pgarneau/configuration-web-app:latest
+    expose:
+      - 4200
+      - 4000
+    ports:
+      - 4000:4000
+      - 4200:4200
+    tty: true
+    networks:
+      - notificus-network
 
 networks:
   notificus-network:

@@ -1,4 +1,4 @@
-/*package configuration.security;
+package configuration.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -12,8 +12,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080")
+                .allowedOrigins("http://localhost:8080", "http://localhost:4000", "http://localhost:4200")
                 .allowCredentials(true);
     }
 }
-*/
