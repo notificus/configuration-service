@@ -4,35 +4,16 @@ import configuration.service.user.User;
 import configuration.service.user.UserService;
 import configuration.service.user.exception.CipMismatchException;
 import configuration.service.user.exception.UserNotFoundException;
-import configuration.service.user.persistent.microservices.MicroServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-/*
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-*/
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersistentUserService implements /*UserDetailsService,*/ UserService {
+public class PersistentUserService implements UserService {
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    MicroServiceRepository msRepository;
-
-/*    @Override
-    public UserDetails loadUserByUsername(String cip) throws UsernameNotFoundException {
-        try {
-            System.out.println(cip);
-            return getUser(cip);
-        } catch (UserNotFoundException e) {
-            return createUser(UserEntityTranslator.translateFrom(msRepository.getUserFullName(cip)));
-        }
-    }*/
 
     @Override
     public List<User> listUsers() {
@@ -61,10 +42,5 @@ public class PersistentUserService implements /*UserDetailsService,*/ UserServic
         } else {
             throw new CipMismatchException();
         }
-    }
-
-    @Override
-    public void deleteUser(String cip) {
-        userRepository.deleteById(cip);
     }
 }
