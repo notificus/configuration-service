@@ -1,4 +1,4 @@
-package configuration.security;
+/*package configuration.security;
 
 import configuration.service.user.persistent.PersistentUserService;
 import org.jasig.cas.client.validation.Cas30ServiceTicketValidator;
@@ -58,3 +58,4 @@ public class CasConfiguration {
         return provider;
     }
 }
+*/
