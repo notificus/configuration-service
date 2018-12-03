@@ -2,18 +2,7 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 steps:
-- task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.10'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'build'
-- script: docker build -t pgarneau/configuration-service . # include other options to meet your needs
+- script: docker build -t notificus/configuration-service . # include other options to meet your needs
 - script: |
-    docker login -u pgarneau -p devildanger1984
-    docker push pgarneau/configuration-service
+    docker login -u notificus -p c2Mwk-Mc
+    docker push notificus/configuration-service
