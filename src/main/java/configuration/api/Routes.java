@@ -6,6 +6,5 @@ public final class Routes {
     public static final String USERS_PATH_VARIABLE = "{cip}";
     public static final String USER_ROUTE = USERS_ROUTE + "/" + USERS_PATH_VARIABLE;
     public static final String USER_CONFIGURATIONS_ROUTE = USER_ROUTE + "/configurations";
-    public static final String LOGIN_ROUTE =  BASE_ROUTE + "login";
 }
 

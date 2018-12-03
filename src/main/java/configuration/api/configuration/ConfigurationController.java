@@ -20,6 +20,10 @@ public class ConfigurationController {
     @Autowired
     ConfigurationService configurationService;
 
+    public ConfigurationController(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
+    }
+
     @RequestMapping(value = Routes.USER_CONFIGURATIONS_ROUTE, method = GET)
     public ResponseEntity<ConfigurationContract> getConfiguration(@PathVariable String cip) {
         return new ResponseEntity<>(ConfigurationContractTranslator.translateTo(
