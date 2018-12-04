@@ -8,8 +8,8 @@ jobs:
   
 - job: Publish
   dependsOn: Build
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   steps:
   - script: |
     docker login -u notificus -p c2Mwk-Mc
     docker push notificus/configuration-service
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
