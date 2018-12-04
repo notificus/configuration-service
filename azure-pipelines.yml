@@ -9,7 +9,5 @@ jobs:
 - job: Publish
   dependsOn: Build
   steps:
-  - script: |
-    docker login -u notificus -p c2Mwk-Mc
-    docker push notificus/configuration-service
+  - script: docker login -u notificus -p c2Mwk-Mc && docker push notificus/configuration-service
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
