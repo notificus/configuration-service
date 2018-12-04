@@ -16,6 +16,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @RequestMapping(value = Routes.USERS_ROUTE, method = GET)
     public ResponseEntity<List<UserContract>> listUsers() {
         return new ResponseEntity<>(UserContractTranslator.translateTo(userService.listUsers()), HttpStatus.OK);

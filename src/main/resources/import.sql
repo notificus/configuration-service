@@ -1,0 +1,1 @@
+CREATE TRIGGER IF NOT EXISTS createConfiguration BEFORE INSERT ON user_entity FOR EACH ROW CALL "configuration.CreateConfigurationTrigger"
