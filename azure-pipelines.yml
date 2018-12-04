@@ -1,8 +1,15 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
-steps:
-- script: docker build -t notificus/configuration-service . # include other options to meet your needs
-- script: |
+jobs:
+- job: Build
+  steps:
+  - script: docker build -t notificus/configuration-service .
+  
+- job: Publish
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  steps:
+  - script: |
     docker login -u notificus -p c2Mwk-Mc
     docker push notificus/configuration-service
