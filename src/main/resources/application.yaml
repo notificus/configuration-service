@@ -73,7 +73,7 @@ notification-service:
 spring:
   profiles: test
   datasource:
-    url: jdbc:h2:mem:testdb:DB_CLOSE_DELAY=-1;DBCLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:testdb:DB_CLOSE_DELAY=-1;
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -82,4 +82,24 @@ spring:
     console: true
     path: /console
   jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      dialect:
+        org.hibernate.dialect.H2Dialect
 
+server:
+  use-forward-headers: true
+  port: 8081
+
+configuration-service:
+  url: "http://localhost"
+
+configuration-web-app:
+  url: "http://localhost:8080/home"
+  ip: "localhost"
+
+notification-service:
+  ip: "localhost"
